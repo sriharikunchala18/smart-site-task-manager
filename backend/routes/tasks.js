@@ -106,24 +106,38 @@ router.get('/', async (req, res) => {
   try {
     const { status, category, priority, limit = 10, offset = 0 } = req.query;
 
-    let query = supabase
-      .from('tasks')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .range(offset, offset + limit - 1);
+    if (useSupabase) {
+      let query = supabase
+        .from('tasks')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
 
-    if (status) query = query.eq('status', status);
-    if (category) query = query.eq('category', category);
-    if (priority) query = query.eq('priority', priority);
+      if (status) query = query.eq('status', status);
+      if (category) query = query.eq('category', category);
+      if (priority) query = query.eq('priority', priority);
 
-    const { data, error } = await query;
+      const { data, error } = await query;
 
-    if (error) {
-      console.error('Supabase query error:', error);
-      return res.status(500).json({ error: 'Failed to fetch tasks' });
+      if (error) {
+        console.error('Supabase query error:', error);
+        // Fallback to in-memory storage
+        let filteredTasks = tasks;
+        if (status) filteredTasks = filteredTasks.filter(t => t.status === status);
+        if (category) filteredTasks = filteredTasks.filter(t => t.category === category);
+        if (priority) filteredTasks = filteredTasks.filter(t => t.priority === priority);
+        return res.json(filteredTasks.slice(offset, offset + limit));
+      }
+
+      return res.json(data);
+    } else {
+      // Use in-memory storage
+      let filteredTasks = tasks;
+      if (status) filteredTasks = filteredTasks.filter(t => t.status === status);
+      if (category) filteredTasks = filteredTasks.filter(t => t.category === category);
+      if (priority) filteredTasks = filteredTasks.filter(t => t.priority === priority);
+      return res.json(filteredTasks.slice(offset, offset + limit));
     }
-
-    res.json(data);
   } catch (error) {
     console.error('Error fetching tasks:', error);
     res.status(500).json({ error: 'Failed to fetch tasks' });
