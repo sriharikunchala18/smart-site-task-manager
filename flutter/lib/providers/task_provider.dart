@@ -43,7 +43,9 @@ class TaskProvider with ChangeNotifier {
 
   Future<void> fetchTasks() async {
     if (!_isOnline) {
-      throw Exception('No internet connection');
+      _isLoading = false;
+      notifyListeners();
+      return;
     }
 
     _isLoading = true;
@@ -56,11 +58,12 @@ class TaskProvider with ChangeNotifier {
         final List<dynamic> data = response.data;
         _tasks = data.map((json) => Task.fromJson(json)).toList();
       } else {
-        throw Exception('Failed to load tasks');
+        print('Failed to load tasks: ${response.statusCode}');
+        _tasks = []; // Clear tasks on error
       }
     } catch (error) {
       print('Error fetching tasks: $error');
-      rethrow;
+      _tasks = []; // Clear tasks on error
     } finally {
       _isLoading = false;
       notifyListeners();
