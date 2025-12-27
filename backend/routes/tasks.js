@@ -6,6 +6,10 @@ const supabase = require('../config/supabase');
 
 const router = express.Router();
 
+// In-memory storage fallback
+let tasks = [];
+const useSupabase = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY;
+
 // Validation schemas
 const createTaskSchema = Joi.object({
   title: Joi.string().required(),
