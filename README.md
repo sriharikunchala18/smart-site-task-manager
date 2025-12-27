@@ -348,6 +348,6 @@ For support, email support@smartsitetaskmanager.com or create an issue in this r
 
 ---
 
-**Live Demo**: [https://smart-site-task-manager.onrender.com](https://smart-site-task-manager.onrender.com)
+**Live Demo**: [https://smart-site-task-manager-1.onrender.com](https://smart-site-task-manager-1.onrender.com)
 
-**GitHub Repository**: [https://github.com/yourusername/smart-site-task-manager](https://github.com/yourusername/smart-site-task-manager)
+**GitHub Repository**: [https://github.com/sriharikunchala18/smart-site-task-manager](https://github.com/sriharikunchala18/smart-site-task-manager)

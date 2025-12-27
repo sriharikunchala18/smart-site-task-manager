@@ -7,7 +7,7 @@ import '../models/task.dart';
 
 class TaskProvider with ChangeNotifier {
   final String baseUrl =
-      'https://your-render-app-url.onrender.com/api/tasks'; // Replace with your Render URL
+      'https://smart-site-task-manager-1.onrender.com/api/tasks'; // Replace with your Render URL
 
   List<Task> _tasks = [];
   bool _isLoading = false;

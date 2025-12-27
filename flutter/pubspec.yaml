@@ -1,9 +1,13 @@
-flutter:
-    sdk: flutter
-  http: ^1.1.0
-  provider: ^6.0.5
-  intl: ^0.19.0
-=======
+name: smart_site_task_manager
+description: A Flutter app for task management.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
@@ -11,3 +15,7 @@ dependencies:
   provider: ^6.0.5
   intl: ^0.19.0
   connectivity_plus: ^5.0.2
+  http: ^1.1.0
+
+flutter:
+  uses-material-design: true
