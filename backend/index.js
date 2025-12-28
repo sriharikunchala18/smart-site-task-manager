@@ -20,6 +20,11 @@ app.use(express.json());
 // Routes
 app.use('/api/tasks', taskRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Smart Site Task Manager API', status: 'running' });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Smart Site Task Manager API is running' });
