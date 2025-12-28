@@ -6,8 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import '../models/task.dart';
 
 class TaskProvider with ChangeNotifier {
-  final String baseUrl =
-      'https://smart-site-task-manager-1.onrender.com/api/tasks'; // Use Render URL for production
+  final String baseUrl = '/api/tasks'; // Use relative URL for production
 
   List<Task> _tasks = [];
   bool _isLoading = false;
