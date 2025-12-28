@@ -1,10 +1,10 @@
-const http = require('http');
+const https = require('https');
 
 const BASE_URL = 'http://localhost:3000/api/tasks';
 
 function makeRequest(options, data = null) {
   return new Promise((resolve, reject) => {
-    const req = http.request(options, (res) => {
+    const req = https.request(options, (res) => {
       let body = '';
       res.on('data', (chunk) => {
         body += chunk;
@@ -40,8 +40,8 @@ async function testAPI() {
     // Test 1: Health Check
     console.log('1. Health Check:');
     const healthResponse = await makeRequest({
-      hostname: 'localhost',
-      port: 3000,
+      hostname: 'smart-site-task-manager-1.onrender.com',
+      port: 443,
       path: '/health',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
@@ -73,8 +73,8 @@ async function testAPI() {
     // Test 3: Get all tasks
     console.log('3. Getting all tasks:');
     const getAllResponse = await makeRequest({
-      hostname: 'localhost',
-      port: 3000,
+      hostname: 'smart-site-task-manager-1.onrender.com',
+      port: 443,
       path: '/api/tasks',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
@@ -85,8 +85,8 @@ async function testAPI() {
     // Test 4: Get specific task
     console.log('4. Getting specific task details:');
     const getTaskResponse = await makeRequest({
-      hostname: 'localhost',
-      port: 3000,
+      hostname: 'smart-site-task-manager-1.onrender.com',
+      port: 443,
       path: `/api/tasks/${taskId}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
@@ -98,8 +98,8 @@ async function testAPI() {
     // Test 5: Update task
     console.log('5. Updating task status:');
     const updateResponse = await makeRequest({
-      hostname: 'localhost',
-      port: 3000,
+      hostname: 'smart-site-task-manager-1.onrender.com',
+      port: 443,
       path: `/api/tasks/${taskId}`,
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' }
@@ -113,8 +113,8 @@ async function testAPI() {
     // Test 6: Filter tasks by category
     console.log('6. Filtering tasks by category (scheduling):');
     const filterResponse = await makeRequest({
-      hostname: 'localhost',
-      port: 3000,
+      hostname: 'smart-site-task-manager-1.onrender.com',
+      port: 443,
       path: '/api/tasks?category=scheduling',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
