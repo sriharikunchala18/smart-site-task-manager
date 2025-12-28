@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import '../models/task.dart';
 
 class TaskProvider with ChangeNotifier {
@@ -11,7 +10,6 @@ class TaskProvider with ChangeNotifier {
   List<Task> _tasks = [];
   bool _isLoading = false;
   late Dio _dio;
-  late Connectivity _connectivity;
   bool _isOnline = true;
 
   List<Task> get tasks => _tasks;
@@ -20,24 +18,10 @@ class TaskProvider with ChangeNotifier {
 
   TaskProvider() {
     _dio = Dio();
-    _connectivity = Connectivity();
 
     _dio.options.baseUrl = baseUrl;
     _dio.options.connectTimeout = const Duration(seconds: 10);
     _dio.options.receiveTimeout = const Duration(seconds: 10);
-
-    // Check connectivity
-    _connectivity.onConnectivityChanged.listen((result) {
-      _isOnline = result != ConnectivityResult.none;
-      notifyListeners();
-    });
-    _checkConnectivity();
-  }
-
-  Future<void> _checkConnectivity() async {
-    final result = await _connectivity.checkConnectivity();
-    _isOnline = result != ConnectivityResult.none;
-    notifyListeners();
   }
 
   Future<void> fetchTasks() async {
